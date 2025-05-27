@@ -1,7 +1,5 @@
 import sqlite3
 from lib.db.connection import get_connection
-
-# ------------------ Author Model ------------------
 class Author:
     def __init__(self, name, id=None):
         self.id = id

@@ -1,17 +1,13 @@
-# seed.py: Populate the database with initial data
-
 from lib.db.connection import get_connection
 
 def seed_data():
     conn = get_connection()
     cursor = conn.cursor()
 
-    # Insert Authors
     authors = ["Alice Smith", "Bob Johnson", "Charlie Rose"]
     for name in authors:
         cursor.execute("INSERT INTO authors (name) VALUES (?)", (name,))
 
-    # Insert Magazines
     magazines = [
         ("Tech Weekly", "Technology"),
         ("Health Monthly", "Health"),
@@ -20,7 +16,6 @@ def seed_data():
     for name, category in magazines:
         cursor.execute("INSERT INTO magazines (name, category) VALUES (?, ?)", (name, category))
 
-    # Insert Articles
     articles = [
         ("AI in 2025", 1, 1),
         ("Meditation Benefits", 2, 2),

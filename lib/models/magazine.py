@@ -88,7 +88,5 @@ class Magazine:
         row = cursor.fetchone()
         conn.close()
         if row:
-            # Extract only the magazine fields, excluding article_count
             return cls(id=row['id'], name=row['name'], category=row['category'])
         return None
-        
