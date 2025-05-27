@@ -49,12 +49,11 @@ Includes optimized indexes for better query performance on foreign keys and cate
 ## Setup Instructions
 
 ### Prerequisites
-- Python 3.6+
 - SQLite3 (usually included with Python)
 
 ### Installation
 
-1. **Clone or download the project files**
+1. **Clone the project files**
 
 2. **Set up the database**:
    ```bash
@@ -103,45 +102,6 @@ Articles in Health Monthly:
  - Meditation Benefits
  - Healthy Eating
 ```
-
-### Using the Models Programmatically
-
-```python
-from lib.models.author import Author
-from lib.models.magazine import Magazine
-from lib.models.article import Article
-
-# Find an author and their articles
-author = Author.find_by_name("Alice Smith")
-articles = author.articles()
-
-# Find a magazine and its contributors
-magazine = Magazine.find_by_name("Tech Weekly")
-contributors = magazine.contributors()
-
-# Create new content
-new_author = Author("Jane Doe")
-new_author.save()
-
-tech_magazine = Magazine.find_by_name("Tech Weekly")
-new_author.add_article(tech_magazine, "The Future of AI")
-```
-
-## Code Architecture Explanation
-
-### Database Connection (`lib/db/connection.py`)
-- **Purpose**: Centralized database connection management
-- **Key Feature**: Uses `sqlite3.Row` factory for dictionary-like access to query results
-- **Pattern**: Connection factory pattern for consistent database access
-
-### Models (`lib/models/`)
-Each model follows the Active Record pattern:
-
-- **Constructor**: Initializes object properties (with optional ID for existing records)
-- **save()**: Persists new objects to database and sets the ID
-- **Static finders**: Class methods like `find_by_id()` and `find_by_name()`
-- **Relationship methods**: Handle associations between models (e.g., `author.articles()`)
-
 ### Key Programming Concepts Demonstrated
 
 1. **Object-Relational Mapping (ORM)**: Models represent database tables as Python classes
@@ -149,39 +109,5 @@ Each model follows the Active Record pattern:
 3. **SQL Query Optimization**: Indexes on frequently queried columns
 4. **Circular Import Prevention**: Models import each other only within methods when needed
 5. **Database Transactions**: Proper commit/close patterns for data integrity
-
-## Sample Data
-
-The system comes pre-loaded with:
-
-**Authors:**
-- Alice Smith (writes about Technology and Art)
-- Bob Johnson (writes about Health)
-- Charlie Rose (writes about Art)
-
-**Magazines:**
-- Tech Weekly (Technology category)
-- Health Monthly (Health category)  
-- Art & Culture (Art category)
-
-**Articles:**
-- Various articles connecting authors to appropriate magazines
-
-## Extending the System
-
-To add new functionality:
-
-1. **New Model**: Create a new class in `lib/models/` following the existing pattern
-2. **Database Changes**: Update `schema.sql` and re-run setup
-3. **Relationships**: Add methods to link your new model with existing ones
-4. **CLI Commands**: Extend `debug.py` to test new features
-
-## Troubleshooting
-
-- **Database not found**: Run `python scripts/setup_db.py` to create it
-- **Import errors**: Ensure you're running scripts from the project root directory
-- **Empty results**: Check that the database was properly seeded with sample data
-
----
 
 This project demonstrates fundamental database relationships and ORM patterns commonly used in web applications and data management systems.
